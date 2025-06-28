@@ -1,0 +1,6 @@
+{
+  "is-main": true,
+  "import": [
+    "ryota0624/protobuf-wasm/lib"
+  ]
+}
