@@ -1,4 +1,6 @@
 package ryota0624:protobuf-wasm;
+
 world example {
-    export hello-world: func() -> string;
+  import wasi:cli/stdout@0.2.6;
+  export wasi:cli/run@0.2.6;
 }

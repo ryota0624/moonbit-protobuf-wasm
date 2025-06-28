@@ -1,0 +1,1 @@
+{ "import": [{ "path" : "ryota0624/protobuf-wasm/ffi", "alias" : "ffi" }, { "path" : "ryota0624/protobuf-wasm/interface/wasi/io/error", "alias" : "error" }, { "path" : "ryota0624/protobuf-wasm/interface/wasi/io/poll", "alias" : "poll" }] }
