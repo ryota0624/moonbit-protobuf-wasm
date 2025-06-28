@@ -1,0 +1,4 @@
+[logging]
+url = "https://github.com/WebAssembly/wasi-logging/archive/d106e59b25297d0496e6a5d221ad090e19c3aaa3.tar.gz"
+sha256 = "4bb4aeab99e7323b30d107aab78e88b2265c1598cc438bc5fbc0d16bb63e798f"
+sha512 = "13b52b59afd98dd4938e3a651fad631d41a2e84ce781df5d8957eded77a8e1ac4277e771a10225cd4a3a9eae369ed7e8fee6e26f9991a2caa7c97c4a758b1ae6"

@@ -1,0 +1,4 @@
+package ryota0624:protobuf-wasm;
+world example {
+    export hello-world: func() -> string;
+}
