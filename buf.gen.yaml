@@ -1,0 +1,6 @@
+version: v2
+plugins:
+  - local: [".bin/protoc-gen-mbt/protoc-gen-mbt"]
+    out: protocgen/gen
+    opt:
+      - paths=source_relative

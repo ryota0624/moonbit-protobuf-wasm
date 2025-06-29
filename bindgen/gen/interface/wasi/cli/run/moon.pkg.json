@@ -1,0 +1,6 @@
+{ 
+  "import": [
+    "ryota0624/protobuf-wasm/interface/wasi/cli/stdout",
+    "ryota0624/protobuf-wasm/interface/wasi/io/streams"
+  ]
+}

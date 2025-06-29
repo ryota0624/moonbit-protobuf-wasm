@@ -1,0 +1,8 @@
+{
+	"name": "ryota0624/protobuf-wasm-protocgen",
+	"deps": {
+		"moonbit-community/protobuf": {
+			"path": "../.bin/protoc-gen-mbt"
+		}
+	}
+}
