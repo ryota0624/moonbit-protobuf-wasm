@@ -1,7 +1,7 @@
 {
 	"is-main": true,
 	"import": [
-		"ryota0624/protobuf-wasm-protocgen/gen",
+		"ryota0624/protobuf-wasm-protocgen-sqlc/gen",
 		"moonbit-community/protobuf/lib"
 	]
 }

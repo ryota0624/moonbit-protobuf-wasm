@@ -1,6 +1,6 @@
 version: v2
 plugins:
   - local: [".bin/protoc-gen-mbt/protoc-gen-mbt"]
-    out: protocgen/gen
+    out: protocgen/sqlc/gen
     opt:
       - paths=source_relative

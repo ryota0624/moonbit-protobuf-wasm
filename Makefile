@@ -20,3 +20,11 @@ run: build
 
 build-protoc-gen-mbt:
 	cd .bin/protoc-gen-mbt && go build .
+
+clone-mbt-protoc:
+	mkdir .git
+	git clone git@github.com:moonbit-community/protoc-gen-mbt.git
+
+test-run-sqlcgen: build
+	rm -rf sqlc/gen
+	cd sqlc && sqlc generate

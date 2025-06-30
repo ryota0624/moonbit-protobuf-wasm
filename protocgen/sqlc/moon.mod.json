@@ -1,0 +1,10 @@
+{
+	"version": "0.1.0",
+	"name": "ryota0624/protobuf-wasm-protocgen-sqlc",
+	"deps": {
+		"moonbit-community/protobuf": {
+			"path": "../../.bin/protoc-gen-mbt",
+			"version": "0.1.0"
+		}
+	}
+}

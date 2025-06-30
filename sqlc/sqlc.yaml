@@ -1,0 +1,15 @@
+version: '2'
+plugins:
+- name: moonbit
+  process:
+    cmd: ./sqlc-gen-moonbit-wasmtime.sh
+sql:
+- name: sqlite
+  schema: sqlite/schema.sql
+  queries: sqlite/query.sql
+  engine: sqlite
+  database:
+    uri: file:authors?mode=memory&cache=shared
+  codegen:
+  - out: gen
+    plugin: moonbit
