@@ -1,6 +1,9 @@
 { 
   "import": [
-    "ryota0624/protobuf-wasm/interface/wasi/cli/stdout",
-    "ryota0624/protobuf-wasm/interface/wasi/io/streams"
+    "ryota0624/protobuf-wasm-bindgen/interface/wasi/cli/stdout",
+    "ryota0624/protobuf-wasm-bindgen/interface/wasi/io/streams",
+    "ryota0624/protobuf-wasm-bindgen/interface/wasi/io/poll",
+    "ryota0624/protobuf-wasm-bindgen/interface/wasi/cli/stdin",
+    "ryota0624/protobuf-wasm-bindgen/interface/wasi/io/error"
   ]
 }

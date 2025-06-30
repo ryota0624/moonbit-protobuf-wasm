@@ -3,7 +3,6 @@
 # Setup
 cargo install wit-bindgen-cli
 cargo install wit-deps-cli
-brew install wasm-tools
 
 # build
 

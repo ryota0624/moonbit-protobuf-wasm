@@ -173,6 +173,54 @@
       "last_modified": "2025-06-27T03:16:46Z",
       "resolved": "github:NixOS/nixpkgs/80d50fc87924c2a0d346372d242c27973cf8cdbf?lastModified=1750994206&narHash=sha256-3u6rEbIX9CN%2F5A5%2Fmc3u0wIO1geZ0EhjvPBXmRDHqWM%3D"
     },
+    "wasm-tools@latest": {
+      "last_modified": "2025-06-20T02:24:11Z",
+      "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#wasm-tools",
+      "source": "devbox-search",
+      "version": "1.235.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ma76wq0mrgvlhpf0cjlrdcmikxw6bj6a-wasm-tools-1.235.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ma76wq0mrgvlhpf0cjlrdcmikxw6bj6a-wasm-tools-1.235.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/zx890kvsl1w59iasvl2y8gghlgfvmq44-wasm-tools-1.235.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/zx890kvsl1w59iasvl2y8gghlgfvmq44-wasm-tools-1.235.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/axb94vkrkp038kkschh7ig80jwynfa6h-wasm-tools-1.235.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/axb94vkrkp038kkschh7ig80jwynfa6h-wasm-tools-1.235.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hw4974nnmbcf6vb91ybr15c33c8406wn-wasm-tools-1.235.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hw4974nnmbcf6vb91ybr15c33c8406wn-wasm-tools-1.235.0"
+        }
+      }
+    },
     "wasmtime@latest": {
       "last_modified": "2025-06-20T02:24:11Z",
       "resolved": "github:NixOS/nixpkgs/076e8c6678d8c54204abcb4b1b14c366835a58bb#wasmtime",

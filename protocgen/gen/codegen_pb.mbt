@@ -369,7 +369,7 @@ pub(all) struct Column {
   mut scope : String
   mut table : Identifier
   mut table_alias : String
-  mut type : Identifier
+  mut identifier : Identifier
   mut is_sqlc_slice : Bool
   mut embed_table : Identifier
   mut original_name : String
@@ -388,7 +388,7 @@ impl @lib.Sized for Column with size_of(self) {
   size += 1U + { let size = @lib.size_of(self.scope); @lib.size_of(size) + size }
   size += 1U + { let size = @lib.size_of(self.table); @lib.size_of(size) + size }
   size += 1U + { let size = @lib.size_of(self.table_alias); @lib.size_of(size) + size }
-  size += 1U + { let size = @lib.size_of(self.type); @lib.size_of(size) + size }
+  size += 1U + { let size = @lib.size_of(self.identifier); @lib.size_of(size) + size }
   size += 1U + @lib.size_of(self.is_sqlc_slice)
   size += 1U + { let size = @lib.size_of(self.embed_table); @lib.size_of(size) + size }
   size += 1U + { let size = @lib.size_of(self.original_name); @lib.size_of(size) + size }
@@ -410,7 +410,7 @@ pub impl @lib.Read for Column with read(reader : &@lib.Reader) {
       (9, _) => msg.scope = reader |> @lib.read_string!()
       (10, _) => msg.table = ((reader |> @lib.read_message!()) : Identifier)
       (11, _) => msg.table_alias = reader |> @lib.read_string!()
-      (12, _) => msg.type = ((reader |> @lib.read_message!()) : Identifier)
+      (12, _) => msg.identifier = ((reader |> @lib.read_message!()) : Identifier)
       (13, _) => msg.is_sqlc_slice = reader |> @lib.read_bool!()
       (14, _) => msg.embed_table = ((reader |> @lib.read_message!()) : Identifier)
       (15, _) => msg.original_name = reader |> @lib.read_string!()
@@ -432,7 +432,7 @@ pub impl @lib.Write for Column with write(self, writer) {
   writer |> @lib.write_varint(74UL);writer |> @lib.write_string(self.scope)
   writer |> @lib.write_varint(82UL);writer |> @lib.write_uint32(@lib.size_of(self.table)); @lib.Write::write(self.table, writer)
   writer |> @lib.write_varint(90UL);writer |> @lib.write_string(self.table_alias)
-  writer |> @lib.write_varint(98UL);writer |> @lib.write_uint32(@lib.size_of(self.type)); @lib.Write::write(self.type, writer)
+  writer |> @lib.write_varint(98UL);writer |> @lib.write_uint32(@lib.size_of(self.identifier)); @lib.Write::write(self.identifier, writer)
   writer |> @lib.write_varint(104UL);writer |> @lib.write_bool(self.is_sqlc_slice)
   writer |> @lib.write_varint(114UL);writer |> @lib.write_uint32(@lib.size_of(self.embed_table)); @lib.Write::write(self.embed_table, writer)
   writer |> @lib.write_varint(122UL);writer |> @lib.write_string(self.original_name)

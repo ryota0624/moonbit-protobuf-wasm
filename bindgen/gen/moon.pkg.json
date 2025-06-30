@@ -7,5 +7,5 @@
                   "heap-start-address": 16
             }
       }
-      ,"import": [{ "path" : "ryota0624/protobuf-wasm/ffi", "alias" : "ffi" }, { "path" : "ryota0624/protobuf-wasm/gen/interface/wasi/cli/run", "alias" : "run" }]
+      ,"import": [{ "path" : "ryota0624/protobuf-wasm-bindgen/ffi", "alias" : "ffi" }, { "path" : "ryota0624/protobuf-wasm-bindgen/gen/interface/wasi/cli/run", "alias" : "run" }]
 }

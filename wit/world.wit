@@ -1,6 +1,8 @@
-package ryota0624:protobuf-wasm;
+package ryota0624:protobuf-wasm-bindgen;
 
 world example {
   import wasi:cli/stdout@0.2.6;
+  import wasi:cli/stdin@0.2.6;
+
   export wasi:cli/run@0.2.6;
 }
