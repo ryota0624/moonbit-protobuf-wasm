@@ -11,5 +11,5 @@ sql:
   database:
     uri: file:authors?mode=memory&cache=shared
   codegen:
-  - out: gen
+  - out: sqlitegen
     plugin: moonbit

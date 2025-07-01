@@ -4,40 +4,44 @@
 const BUFFER_LEN : UInt64 = 4096
 
 ///|
-suberror WasmError @error.Error_
+priv suberror WasmError @error.Error_
 
 ///| Run the program.
 pub fn run() -> Result[Unit, Unit] {
   let out = @stdout.get_stdout()
   let input = @stdin.get_stdin()
   let stderr = @stderr.get_stderr()
-
-  // @protoc.GenerateRequest();
   let result = try? {
       let from_stdin = read_input(input, BUFFER_LEN)
         .map_err(WasmError(_))
         .unwrap_or_error()
+      log(stderr, from_stdin.to_bytes().to_string())
       let reader = @protobuf.BytesReader::from_bytes(from_stdin.to_bytes())
-      handle_request(@sqlc.GenerateRequest::read(reader))
+      let response = handle_request(@sqlc.GenerateRequest::read(reader))
+      let writer = @buffer.new()
+      @protobuf.Write::write(response, writer)
+      log_bytes(out, writer.to_bytes().to_fixedarray())
     }
-  Ok(
-    @exit.exit(
-      match result {
-        Err(err) => {
-          ignore(log(stderr, err.to_string()))
-          Err(())
-        }
-        Ok(_) => Ok(())
-      },
-    ),
-  )
+  match result {
+    Err(err) => {
+      ignore(log(stderr, "Occurred Error\n"))
+      ignore(log(stderr, err.to_string()))
+      Err(())
+    }
+    Ok(_) => Ok(@exit.exit(Ok(())))
+  }
 }
 
 ///|
 fn handle_request(
   request : @sqlc.GenerateRequest
-) -> @sqlc.GenerateResponse raise {
-  fail(request.sqlc_version)
+) -> @sqlc.GenerateResponse {
+  let response = @sqlc.GenerateResponse::default()
+  let file = @sqlc.File::default()
+  file.name = "query.mbt"
+  file.contents = "fn main {println()}"
+  response.files = [file]
+  response
 }
 
 ///|
