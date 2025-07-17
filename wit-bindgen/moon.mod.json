@@ -2,7 +2,7 @@
 	"name": "ryota0624/protobuf-wasm-bindgen",
 	"deps": {
 		"moonbit-community/protobuf": {
-			"path": "../.bin/protoc-gen-mbt/lib",
+			"path": "../protoc-gen-mbt/lib",
 			"version": "0.1.0"
 		},
 		"ryota0624/protobuf-wasm-protocgen-sqlc": {

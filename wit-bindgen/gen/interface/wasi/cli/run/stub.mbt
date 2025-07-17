@@ -39,7 +39,7 @@ fn handle_request(
   let response = @sqlc.GenerateResponse::default()
   let file = @sqlc.File::default()
   file.name = "query.mbt"
-  file.contents = "fn main {println()}"
+  file.contents = request.to_string().to_bytes()
   response.files = [file]
   response
 }

@@ -21,7 +21,7 @@ run: build
 	wasmtime run wit-bindgen/target/wasm/release/build/gen/gen.wasm < LICENSE
 
 build-protoc-gen-mbt:
-	cd .bin/protoc-gen-mbt && go build .
+	cd protoc-gen-mbt && go build .
 
 clone-mbt-protoc:
 	mkdir .git
