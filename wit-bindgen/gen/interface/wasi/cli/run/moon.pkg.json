@@ -8,7 +8,7 @@
     "ryota0624/protobuf-wasm-bindgen/interface/wasi/cli/stderr",
     "ryota0624/protobuf-wasm-bindgen/interface/wasi/cli/exit",
     {
-      "path": "ryota0624/protobuf-wasm-protocgen-sqlc/gen",
+      "path": "protoc_gen/plugin",
       "alias": "sqlc"
     },
     {

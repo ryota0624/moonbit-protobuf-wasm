@@ -1,4 +1,5 @@
 build:
+	buf generate
 	cd wit-bindgen && moon build --target wasm
 	wasm-tools component embed wit wit-bindgen/target/wasm/release/build/gen/gen.wasm -o wit-bindgen/target/wasm/release/build/gen/gen.wasm --encoding utf16
 	wasm-tools component new wit-bindgen/target/wasm/release/build/gen/gen.wasm -o wit-bindgen/target/wasm/release/build/gen/gen.wasm	
@@ -21,7 +22,7 @@ run: build
 	wasmtime run wit-bindgen/target/wasm/release/build/gen/gen.wasm < LICENSE
 
 build-protoc-gen-mbt:
-	cd protoc-gen-mbt && go build .
+	cd protoc-gen-mbt && go build -o ../protoc-gen-mbt-bin .
 
 clone-mbt-protoc:
 	mkdir .git

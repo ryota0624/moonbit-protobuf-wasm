@@ -5,8 +5,8 @@
 			"path": "../protoc-gen-mbt/lib",
 			"version": "0.1.0"
 		},
-		"ryota0624/protobuf-wasm-protocgen-sqlc": {
-			"path": "../protocgen/sqlc",
+		"protoc_gen": {
+			"path": "../protocgen/sqlc/gen",
 			"version": "0.1.0"
 		}
 	}
