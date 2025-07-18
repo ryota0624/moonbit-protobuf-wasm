@@ -9,13 +9,13 @@ priv suberror WasmError @error.Error_
 ///| Run the program.
 pub fn run() -> Result[Unit, Unit] {
   let out = @stdout.get_stdout()
+  log(out, "start cli")
   let input = @stdin.get_stdin()
   let stderr = @stderr.get_stderr()
   let result = try? {
       let from_stdin = read_input(input, BUFFER_LEN)
         .map_err(WasmError(_))
         .unwrap_or_error()
-      log(stderr, from_stdin.to_bytes().to_string())
       let reader = @protobuf.BytesReader::from_bytes(from_stdin.to_bytes())
       let response = handle_request(@sqlc.GenerateRequest::read(reader))
       let writer = @buffer.new()
