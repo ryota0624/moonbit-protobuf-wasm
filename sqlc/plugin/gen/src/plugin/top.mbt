@@ -1,4 +1,4 @@
-// Code generated from codegen.proto by protoc-gen-mbt. DO NOT EDIT.
+// Code generated from .t/codegen.proto by protoc-gen-mbt. DO NOT EDIT.
 
 pub(all) struct File {
   mut name : String

@@ -1,12 +1,12 @@
 {
-	"name": "ryota0624/protobuf-wasm-bindgen",
+	"name": "ryota0624/sql-adapter",
 	"deps": {
 		"moonbit-community/protobuf": {
 			"path": "../protoc-gen-mbt/lib",
 			"version": "0.1.0"
 		},
-		"sqlc-plugin": {
-			"path": "../sqlc/plugin/gen",
+		"protoc_gen": {
+			"path": "../protocgen/sqlc/gen",
 			"version": "0.1.0"
 		}
 	}
