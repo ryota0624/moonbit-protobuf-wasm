@@ -2,3 +2,6 @@ target/
 .mooncakes/
 .DS_Store
 protoc-gen-mbt-bin
+.node_modules
+gen-ts
+gen-mbt
