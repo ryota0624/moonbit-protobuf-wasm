@@ -46,10 +46,27 @@ async fn[Ctx : RunQueryContext] run_query(
 ///|
 pub async fn app() -> Unit {
   let adapter = JsAdapter::global()
-  let query = @sql_adapter_query.RunQuery::default()
-  query.query = "select * from users"
   let result = try? {
       let ctx = adapter.prepare_context("psql:localhost")
+      let query = @sql_adapter_query.RunQuery::default()
+      query.query = "insert into users(name, age) values (?, ?)"
+      query.values = [
+        {
+          type_: Value_VALUE_TYPE_STRING,
+          str: "su",
+          int: Default::default(),
+          is_null: false,
+        },
+        {
+          type_: Value_VALUE_TYPE_INT,
+          str: Default::default(),
+          int: 100,
+          is_null: false,
+        },
+      ]
+      ignore(run_query(ctx, query))
+      let query = @sql_adapter_query.RunQuery::default()
+      query.query = "select * from users"
       run_query(ctx, query)
     }
   println(result)

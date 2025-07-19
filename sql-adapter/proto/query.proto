@@ -21,6 +21,7 @@ message Value {
 	ValueType type_ = 1;
 	string str = 2;
 	int64 int = 3;
+	bool is_null = 4;
 	
 	enum ValueType {
 		VALUE_TYPE_UNSPECIFIED = 0;

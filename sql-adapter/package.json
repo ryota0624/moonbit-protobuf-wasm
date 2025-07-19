@@ -14,5 +14,8 @@
   "dependencies": {
     "@bufbuild/protobuf": "^2.6.1",
     "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.18"
   }
 }
