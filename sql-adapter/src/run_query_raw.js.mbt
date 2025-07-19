@@ -1,22 +1,4 @@
 ///|
-async fn run_query_raw(
-  adapter : JsAdapter,
-  ctx : JsRunQueryContext,
-  str : Bytes
-) -> Bytes raise RunQueryError {
-  let result = try? suspend((onOk, onErr) => run_query_raw_js(
-      adapter,
-      ctx,
-      str,
-      onOk,
-      err => onErr(Failure(err.to_string())),
-    ))
-  result
-  .map_err(err => RunQueryError::InternalDelegatedRunQueryError(err.to_string()))
-  .unwrap_or_error()
-}
-
-///|
 extern "js" fn prepare_context_js(
   self : JsAdapter,
   connect : String,
@@ -31,7 +13,7 @@ type JsAdapter
 
 ///|
 #external
-type JsError
+priv type JsError
 
 ///|
 impl Show for JsError with output(self, logger) {
@@ -40,7 +22,7 @@ impl Show for JsError with output(self, logger) {
 
 ///|
 extern "js" fn JsError::to_string_js(self : JsError) -> String =
-  #| (self) => self.toString()
+  #| (self) => self.toString() + "\n" + self.stack
 
 ///|
 async fn JsAdapter::prepare_context(
@@ -76,7 +58,7 @@ pub fn setup_JsAdapter(adapter : JsAdapter) -> Unit {
 
 ///|
 #external
-type JsRunQueryContext
+priv type JsRunQueryContext
 
 ///|
 impl RunQueryContext for JsRunQueryContext with describe(_) -> String {
@@ -86,7 +68,16 @@ impl RunQueryContext for JsRunQueryContext with describe(_) -> String {
 ///|
 impl RunQueryContext for JsRunQueryContext with run_query_raw(self, str : Bytes) -> Bytes raise RunQueryError {
   let adapter = JsAdapter::global()
-  run_query_raw(adapter, self, str)
+  let result = try? suspend((onOk, onErr) => run_query_raw_js(
+      adapter,
+      self,
+      str,
+      onOk,
+      err => onErr(Failure(err.to_string())),
+    ))
+  result
+  .map_err(err => RunQueryError::InternalDelegatedRunQueryError(err.to_string()))
+  .unwrap_or_error()
 }
 
 ///|
