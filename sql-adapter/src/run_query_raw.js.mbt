@@ -1,4 +1,8 @@
 ///|
+/// This is a JavaScript interface for running queries.
+/// interface JsAdapter {
+///   prepareContext(connect: String): Promise<JsRunQueryContext>;
+/// }
 #external
 type JsAdapter
 
@@ -23,7 +27,9 @@ async fn JsAdapter::prepare_context(
   suspend((ok, err) => self.prepare_context_js(connect, ok, err))
 }
 
-///|
+///| interface JsRunQueryContext {
+///  runQuery(bytes: Uint8Array): Promise<Uint8Array>;
+/// }
 #external
 priv type JsRunQueryContext
 
@@ -36,16 +42,6 @@ impl RunQueryContext for JsRunQueryContext with run_query_raw(self, str : Bytes)
   .map_err(err => RunQueryError::InternalDelegatedRunQueryError(err.to_string()))
   .unwrap_or_error()
 }
-
-///|
-/// /// This is a JavaScript interface for running queries.
-/// interface JsAdapter {
-///   prepareContext(connect: String): Promise<JsRunQueryContext>;
-/// }
-/// 
-/// interface JsRunQueryContext {
-///  runQuery(bytes: Bytes): Promise<Bytes>;
-/// }
 
 ///|
 extern "js" fn run_query_raw_js(
