@@ -1,0 +1,26 @@
+{
+  "import": [
+    "sql-adapter-message/sql_adapter_query",
+    {
+      "path": "moonbit-community/protobuf/lib",
+      "alias": "protobuf"
+    }
+  ],
+  "targets": {
+    "run_query_raw.js.mbt": [
+      "js"
+    ],
+    "run_query_raw.mbt": [
+      "not",
+      "js"
+    ]
+  },
+  "link": {
+    "js": {
+      "exports": [
+        "setup_JsAdapter",
+        "app"
+      ]
+    }
+  }
+}

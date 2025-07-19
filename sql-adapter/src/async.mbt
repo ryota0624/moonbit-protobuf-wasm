@@ -1,0 +1,5 @@
+async fn[T, E : Error] suspend(
+  f : ((T) -> Unit, (E) -> Unit) -> Unit
+) -> T raise E = "%async.suspend"
+
+fn run_async(f : async () -> Unit) -> Unit = "%async.run"

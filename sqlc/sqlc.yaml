@@ -1,11 +1,11 @@
 version: '2'
 plugins:
 - name: moonbit
-  wasm:
-    url: file://../wit-bindgen/target/wasm/release/build/gen/gen.wasm
-    sha256: 2d3615159b6bd6300f4cf1d805b09ea2e05e754ab1aad77490e68db2160e3fd8
-  # process:
-  #   cmd: ./sqlc-gen-moonbit-wasmtime.sh
+  # wasm:
+  #   url: file://../wit-bindgen/target/wasm/release/build/gen/gen.wasm
+  #   sha256: 2d3615159b6bd6300f4cf1d805b09ea2e05e754ab1aad77490e68db2160e3fd8
+  process:
+    cmd: ./sqlc-gen-moonbit-wasmtime.sh
 sql:
 - name: sqlite
   schema: sqlite/schema.sql

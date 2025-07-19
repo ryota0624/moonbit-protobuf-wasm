@@ -4,3 +4,15 @@ plugins:
     out: sqlc/plugin/gen
     opt:
       - name=sqlc-plugin
+    types:
+      - "plugin"
+  - local: ["./protoc-gen-mbt-bin"]
+    out: sql-adapter/gen-mbt
+    opt:
+      - name=sql-adapter-message
+    types:
+      - "sql_adapter_query"
+  - remote: buf.build/bufbuild/es:v2.6.0
+    out: sql-adapter/gen-ts
+    types:
+      - "sql_adapter_query"

@@ -9,7 +9,7 @@ priv suberror WasmError @error.Error_
 ///| Run the program.
 pub fn run() -> Result[Unit, Unit] {
   let out = @stdout.get_stdout()
-  log(out, "start cli")
+  // log(out, "start cli")
   let input = @stdin.get_stdin()
   let stderr = @stderr.get_stderr()
   let result = try? {

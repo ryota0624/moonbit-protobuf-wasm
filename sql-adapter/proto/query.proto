@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+option go_package = ".t";
+
+package sql_adapter_query;
+
+message Set {
+	repeated Row rows = 1;
+}
+
+message Row {
+	repeated Column columns = 1;
+}
+
+message Column {
+	string name = 1;
+	Value value = 2;
+}
+
+message Value {
+	ValueType type_ = 1;
+	string str = 2;
+	int64 int = 3;
+	
+	enum ValueType {
+		VALUE_TYPE_UNSPECIFIED = 0;
+		VALUE_TYPE_STRING = 1;
+		VALUE_TYPE_INT = 2;
+	}
+}
+
+message RunQuery {
+	string query = 1;
+	repeated Value values = 2;
+}
+
+message RunQueryResult {
+	enum ResultType {
+		RESULT_TYPE_UNSPECIFIED = 0;
+		RESULT_SUCCESS = 1;
+		RESULT_FAILURE= 2;
+	}
+
+	ResultType result_type = 1;
+	Set result_set = 2;
+	RunQueryError error = 3;
+}
+
+message RunQueryError {
+	enum ErrorType {
+		ERROR_TYPE_UNSPECIFIED = 0;
+    ERROR_TYPE_CONNECTION_ERROR = 1;
+	}
+	ErrorType error_type = 1;
+	string connection_error = 2;
+}
