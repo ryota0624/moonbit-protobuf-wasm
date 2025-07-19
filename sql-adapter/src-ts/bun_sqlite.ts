@@ -8,12 +8,18 @@ export class BunSqliteAdapter {
 		const db = new Database(connect, { create: true })
 		return new BunSqliteRunQueryContext(db)
 	}
-	async runQuery(ctx: BunSqliteRunQueryContext, bytes: Uint8Array) {
+}
+
+class BunSqliteRunQueryContext {
+	constructor(private database: Database) {
+	}
+
+	async runQuery(bytes: Uint8Array) {
 		const runQueryCommand = protobuf.fromBinary(RunQuerySchema, bytes)
 		console.log(runQueryCommand);
 
 		const queryParams = runQueryCommand.values.map(convertValueToQueryParam);
-		const query = ctx.database.query(runQueryCommand.query)
+		const query = this.database.query(runQueryCommand.query)
 		const queryResultRows = query.all(...queryParams).map((row) => {
 			const columns = Object.entries(row as Object).map(convertColumnToValue)
 			return {
@@ -29,9 +35,5 @@ export class BunSqliteAdapter {
 		})
 		return protobuf.toBinary(RunQueryResultSchema, result)
 	}
-}
-
-class BunSqliteRunQueryContext {
-	constructor(public database: Database) { }
 }
 

@@ -210,8 +210,7 @@ fn[T : ToPlaceHolderValue] @sql_adapter_query.RunQuery::set_values(
 }
 
 ///|
-pub async fn example() -> Unit {
-  let adapter = JsAdapter::global()
+pub async fn example(adapter : JsAdapter) -> Unit {
   let result = try? {
       let ctx = adapter.prepare_context("users.sqlite")
       let query = @sql_adapter_query.RunQuery::default()
@@ -222,7 +221,7 @@ pub async fn example() -> Unit {
       query.set_values(RegisterUserCommand::new("Alice", 30, None))
       ignore(run_query(ctx, query))
       let query = @sql_adapter_query.RunQuery::default()
-      query.query = "select * from users where gender is not null"
+      query.query = "select * from users"
       let users : Array[User] = run_query(ctx, query).convert()
       users
     }
