@@ -38,12 +38,12 @@ pub async fn[Ctx : RunQueryContext] run_query(
 }
 
 ///|
-trait ValueBuildable {
+pub trait ToQueryValue {
   to_value(self : Self) -> @sql_adapter_query.Value
 }
 
 ///|
-impl ValueBuildable for String with to_value(self) -> @sql_adapter_query.Value {
+impl ToQueryValue for String with to_value(self) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
   value.type_ = Value_VALUE_TYPE_STRING
   value.str = self
@@ -51,7 +51,7 @@ impl ValueBuildable for String with to_value(self) -> @sql_adapter_query.Value {
 }
 
 ///|
-impl ValueBuildable for Int64 with to_value(self) -> @sql_adapter_query.Value {
+impl ToQueryValue for Int64 with to_value(self) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
   value.type_ = Value_VALUE_TYPE_INT
   value.int = self
@@ -59,9 +59,9 @@ impl ValueBuildable for Int64 with to_value(self) -> @sql_adapter_query.Value {
 }
 
 ///|
-impl[T : ValueBuildable] ValueBuildable for T? with to_value(self) -> @sql_adapter_query.Value {
+impl[T : ToQueryValue] ToQueryValue for T? with to_value(self) -> @sql_adapter_query.Value {
   match self {
-    Some(v) => ValueBuildable::to_value(v)
+    Some(v) => ToQueryValue::to_value(v)
     None => {
       let value = @sql_adapter_query.Value::default()
       value.type_ = Value_VALUE_TYPE_NULL
@@ -75,11 +75,6 @@ type Row @sql_adapter_query.Row
 
 ///|
 type Set @sql_adapter_query.Set
-
-///|
-impl Show for Set with output(self, logger) {
-  self.inner().output(logger)
-}
 
 ///|
 fn[T : FromRow] Set::convert(self : Set) -> Array[T] raise FromRowError {
@@ -107,13 +102,13 @@ fn[T] Row::extract(
 }
 
 ///|
-suberror FromRowError {
+pub suberror FromRowError {
   InvalidType(String)
   FieldNotFound(String)
 } derive(Show)
 
 ///|
-trait FromRow {
+pub trait FromRow {
   from_row(row : Row) -> Self raise FromRowError
 }
 
@@ -140,16 +135,16 @@ fn @sql_adapter_query.Value::string(
 }
 
 ///|
-trait ToPlaceHolderValue {
+pub trait ToPlaceHolderValue {
   to_placeholder_value(self : Self) -> Array[@sql_adapter_query.Value]
 }
 
 ///|
-struct RegisterUserCommand {
+priv struct RegisterUserCommand {
   name : String
   age : Int64
   gender : String?
-} derive(Show)
+}
 
 ///|
 fn RegisterUserCommand::new(
@@ -165,14 +160,14 @@ impl ToPlaceHolderValue for RegisterUserCommand with to_placeholder_value(self) 
   @sql_adapter_query.Value,
 ] {
   [
-    ValueBuildable::to_value(self.name),
-    ValueBuildable::to_value(self.age),
-    ValueBuildable::to_value(self.gender),
+    ToQueryValue::to_value(self.name),
+    ToQueryValue::to_value(self.age),
+    ToQueryValue::to_value(self.gender),
   ]
 }
 
 ///|
-fn[X] @sql_adapter_query.Value::maybe(
+fn[X] @sql_adapter_query.Value::option(
   to_x : (@sql_adapter_query.Value) -> X raise FromRowError
 ) -> (@sql_adapter_query.Value) -> X? raise FromRowError {
   (value : @sql_adapter_query.Value) => {
@@ -196,7 +191,7 @@ impl FromRow for User with from_row(row : Row) -> User raise FromRowError {
   let age = row.extract("age", @sql_adapter_query.Value::int)
   let gender = row.extract(
     "gender",
-    @sql_adapter_query.Value::maybe(@sql_adapter_query.Value::string),
+    @sql_adapter_query.Value::option(@sql_adapter_query.Value::string),
   )
   { name, age, gender }
 }
