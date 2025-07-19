@@ -19,7 +19,7 @@
     "js": {
       "exports": [
         "setup_JsAdapter",
-        "app"
+        "example"
       ]
     }
   }

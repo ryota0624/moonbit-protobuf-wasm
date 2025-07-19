@@ -5,7 +5,7 @@ import { BunSqliteAdapter } from "../bun_sqlite.js";
 
 sql_adapter.setup_JsAdapter(new BunSqliteAdapter())
 
-await new Promise<void>((res) => sql_adapter.app((unit: Unit) => {
+await new Promise<void>((res) => sql_adapter.example((unit: Unit) => {
 	res();
 	return unit;
 }))

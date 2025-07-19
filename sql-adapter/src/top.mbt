@@ -1,10 +1,7 @@
-///|
-// fn main {
-//   println(@sql_adapter_query.Set::default())
-// }
+
 
 ///|
-suberror RunQueryError {
+pub suberror RunQueryError {
   ExecuteError(@sql_adapter_query.RunQueryError)
   InternalProtoReaderError(@protobuf.ReaderError)
   InternalProtoFormatError(String)
@@ -12,13 +9,12 @@ suberror RunQueryError {
 } derive(Show)
 
 ///|
-trait RunQueryContext {
-  describe(Self) -> String
+pub trait RunQueryContext {
   async run_query_raw(Self, str : Bytes) -> Bytes raise RunQueryError
 }
 
 ///|
-async fn[Ctx : RunQueryContext] run_query(
+pub async fn[Ctx : RunQueryContext] run_query(
   ctx : Ctx,
   command : @sql_adapter_query.RunQuery
 ) -> @sql_adapter_query.Set raise RunQueryError {
@@ -44,10 +40,10 @@ async fn[Ctx : RunQueryContext] run_query(
 }
 
 ///|
-type ValueBuilder Unit
+pub type ValueBuilder Unit
 
 ///|
-fn ValueBuilder::string(str : String) -> @sql_adapter_query.Value {
+pub fn ValueBuilder::string(str : String) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
   value.type_ = Value_VALUE_TYPE_STRING
   value.str = str
@@ -55,7 +51,7 @@ fn ValueBuilder::string(str : String) -> @sql_adapter_query.Value {
 }
 
 ///|
-fn ValueBuilder::int(int : Int64) -> @sql_adapter_query.Value {
+pub fn ValueBuilder::int(int : Int64) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
   value.type_ = Value_VALUE_TYPE_INT
   value.int = int
@@ -63,9 +59,7 @@ fn ValueBuilder::int(int : Int64) -> @sql_adapter_query.Value {
 }
 
 ///|
-pub async fn app() -> Unit {
-  //		db.query('CREATE TABLE IF NOT EXISTS ' + tableName + ' (name VARCHAR(255), age INTEGER)').run()
-
+pub async fn example() -> Unit {
   let adapter = JsAdapter::global()
   let result = try? {
       let ctx = adapter.prepare_context("users.sqlite")
@@ -83,15 +77,3 @@ pub async fn app() -> Unit {
   println(result)
 }
 
-///|
-// test {
-//   let query = @sql_adapter_query.RunQuery::default()
-//   query.query = "select * from users"
-//   run_async(() => {
-//     let result = try? {
-//         let ctx = prepare_context("psql:localhost")
-//         run_query(ctx, query)
-//       }
-//     println(result)
-//   })
-// }

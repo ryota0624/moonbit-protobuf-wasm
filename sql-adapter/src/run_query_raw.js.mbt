@@ -1,13 +1,4 @@
 ///|
-extern "js" fn prepare_context_js(
-  self : JsAdapter,
-  connect : String,
-  res : (JsRunQueryContext) -> Unit,
-  rej : (Error) -> Unit
-) -> Unit =
-  #|(adapter, connect, res, rej) => adapter.prepareContext(connect).then(res).catch(rej)
-
-///|
 #external
 type JsAdapter
 
@@ -61,11 +52,6 @@ pub fn setup_JsAdapter(adapter : JsAdapter) -> Unit {
 priv type JsRunQueryContext
 
 ///|
-impl RunQueryContext for JsRunQueryContext with describe(_) -> String {
-  return "JsRunQueryContext"
-}
-
-///|
 impl RunQueryContext for JsRunQueryContext with run_query_raw(self, str : Bytes) -> Bytes raise RunQueryError {
   let adapter = JsAdapter::global()
   let result = try? suspend((onOk, onErr) => run_query_raw_js(
@@ -81,6 +67,15 @@ impl RunQueryContext for JsRunQueryContext with run_query_raw(self, str : Bytes)
 }
 
 ///|
+/// 
+/// 
+/// /// This is a JavaScript interface for running queries.
+/// interface JsAdapter {
+///   runQuery(ctx: JsRunQueryContext, bytes: Bytes): Promise<Bytes>;
+///   prepareContext(connect: String): Promise<JsRunQueryContext>;
+/// }
+
+///|
 extern "js" fn run_query_raw_js(
   adapter : JsAdapter,
   ctx : JsRunQueryContext,
@@ -89,3 +84,12 @@ extern "js" fn run_query_raw_js(
   rej : (JsError) -> Unit
 ) -> Unit =
   #|(adapter, ctx, bytes, res, rej) => adapter.runQuery(ctx, bytes).then(res).catch(rej)
+
+///|
+extern "js" fn prepare_context_js(
+  self : JsAdapter,
+  connect : String,
+  res : (JsRunQueryContext) -> Unit,
+  rej : (Error) -> Unit
+) -> Unit =
+  #|(adapter, connect, res, rej) => adapter.prepareContext(connect).then(res).catch(rej)
