@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "moon build --target js && bun run src-ts/index.ts"
+    "dev": "moon build --target js && bun run src-ts/example/main.ts"
   },
   "keywords": [],
   "author": "",

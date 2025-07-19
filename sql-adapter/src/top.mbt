@@ -44,26 +44,37 @@ async fn[Ctx : RunQueryContext] run_query(
 }
 
 ///|
+type ValueBuilder Unit
+
+///|
+fn ValueBuilder::string(str : String) -> @sql_adapter_query.Value {
+  let value = @sql_adapter_query.Value::default()
+  value.type_ = Value_VALUE_TYPE_STRING
+  value.str = str
+  value
+}
+
+///|
+fn ValueBuilder::int(int : Int64) -> @sql_adapter_query.Value {
+  let value = @sql_adapter_query.Value::default()
+  value.type_ = Value_VALUE_TYPE_INT
+  value.int = int
+  value
+}
+
+///|
 pub async fn app() -> Unit {
+  //		db.query('CREATE TABLE IF NOT EXISTS ' + tableName + ' (name VARCHAR(255), age INTEGER)').run()
+
   let adapter = JsAdapter::global()
   let result = try? {
-      let ctx = adapter.prepare_context("psql:localhost")
+      let ctx = adapter.prepare_context("users.sqlite")
+      let query = @sql_adapter_query.RunQuery::default()
+      query.query = "CREATE TABLE IF NOT EXISTS users(name VARCHAR(255), age INTEGER)"
+      ignore(run_query(ctx, query))
       let query = @sql_adapter_query.RunQuery::default()
       query.query = "insert into users(name, age) values (?, ?)"
-      query.values = [
-        {
-          type_: Value_VALUE_TYPE_STRING,
-          str: "su",
-          int: Default::default(),
-          is_null: false,
-        },
-        {
-          type_: Value_VALUE_TYPE_INT,
-          str: Default::default(),
-          int: 100,
-          is_null: false,
-        },
-      ]
+      query.values = [ValueBuilder::string("Alice"), ValueBuilder::int(100)]
       ignore(run_query(ctx, query))
       let query = @sql_adapter_query.RunQuery::default()
       query.query = "select * from users"
