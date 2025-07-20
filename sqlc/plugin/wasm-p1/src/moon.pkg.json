@@ -1,5 +1,7 @@
 {
+  "is-main": true,
   "import": [
+    "peter-jerry-ye/wasi",
     {
       "path": "sqlc-plugin/plugin",
       "alias": "sqlc"
@@ -7,6 +9,12 @@
     {
       "path": "moonbit-community/protobuf/lib",
       "alias": "protobuf"
+    },
+    "ryota0624/sqlc-plugin-wasm-p1/lib"
+  ],
+  "link": {
+    "wasm": {
+      "export-memory-name": "memory"
     }
-  ]
+  }
 }

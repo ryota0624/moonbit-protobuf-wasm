@@ -6,7 +6,7 @@ fn main {
         @bytes.from_array(read_file(@wasi.Fd(0))),
       )
       let request = @sqlc.GenerateRequest::read(reader)
-      let response = @handle_request.handle_request(request)
+      let response = @lib.handle_request(request)
       let writer = @buffer.new()
       @protobuf.Write::write(response, writer)
       let file_names = response.files.map(f => f.name).join(", ")

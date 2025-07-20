@@ -5,18 +5,19 @@
     "peter-jerry-ye/wasi": "0.21.0",
     "tonyfettes/encoding": "0.3.6",
     "moonbit-community/protobuf": {
-      "path": "../../../protoc-gen-mbt/lib",
-      "version": "0.1.0"
+      "version": "0.1.0",
+      "path": "../../../protoc-gen-mbt/lib"
     },
     "sqlc-plugin": {
-      "path": "../gen",
-      "version": "0.1.0"
-    }
+      "version": "0.1.0",
+      "path": "../gen"
+    },
+    "ryota0624/mustache": "0.0.3"
   },
   "readme": "",
   "repository": "",
   "license": "",
   "keywords": [],
   "description": "",
-  "source": "src",
+  "source": "src"
 }

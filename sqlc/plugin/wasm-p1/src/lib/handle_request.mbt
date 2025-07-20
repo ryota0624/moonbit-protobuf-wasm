@@ -1,6 +1,8 @@
-
 ///|
-pub fn handle_request(request : @sqlc.GenerateRequest) -> @sqlc.GenerateResponse {
+pub fn handle_request(
+  request : @sqlc.GenerateRequest
+) -> @sqlc.GenerateResponse {
+  let _ = try? @mustache.parse("", Json::null())
   let response = @sqlc.GenerateResponse::default()
   let file = @sqlc.File::default()
   file.name = "query.mbt"
