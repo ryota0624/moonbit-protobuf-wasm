@@ -16,6 +16,9 @@ wit-build:
 	cp ./tmp/wit-bindgen/moon.mod.json wit-bindgen/moon.mod.json 
 	rm -rf tmp
 
+build-p1:
+	buf generate
+	cd sqlc/plugin/wasm-p1 && moon build --target wasm
 
 .PHONY: run
 run: build
@@ -29,5 +32,9 @@ clone-mbt-protoc:
 	git clone git@github.com:moonbit-community/protoc-gen-mbt.git
 
 test-run-sqlcgen: build
+	rm -rf sqlc/gen
+	cd sqlc && sqlc generate
+
+test-run-sqlcgen-p1: build-p1
 	rm -rf sqlc/gen
 	cd sqlc && sqlc generate
