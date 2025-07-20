@@ -1,5 +1,5 @@
 build:
-	buf generate
+# 	buf generate
 	cd wit-bindgen && moon build --target wasm
 	wasm-tools component embed wit wit-bindgen/target/wasm/release/build/gen/gen.wasm -o wit-bindgen/target/wasm/release/build/gen/gen.wasm --encoding utf16
 	wasm-tools component new wit-bindgen/target/wasm/release/build/gen/gen.wasm -o wit-bindgen/target/wasm/release/build/gen/gen.wasm	
@@ -17,7 +17,7 @@ wit-build:
 	rm -rf tmp
 
 build-p1:
-	buf generate
+# 	buf generate
 	cd sqlc/plugin/wasm-p1 && moon build --target wasm
 
 .PHONY: run
