@@ -1,0 +1,14 @@
+{
+  "name": "ryota0624/sqlc-plugin-wasm-p1",
+  "version": "0.1.0",
+  "deps": {
+    "peter-jerry-ye/wasi": "0.21.0",
+    "tonyfettes/encoding": "0.3.6"
+  },
+  "readme": "",
+  "repository": "",
+  "license": "",
+  "keywords": [],
+  "description": "",
+  "source": "src"
+}
