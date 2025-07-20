@@ -1,7 +1,15 @@
 {
   "import": [
     "peter-jerry-ye/wasi",
-    "tonyfettes/encoding"
+    "tonyfettes/encoding",
+    {
+      "path": "sqlc-plugin/plugin",
+      "alias": "sqlc"
+    },
+    {
+      "path": "moonbit-community/protobuf/lib",
+      "alias": "protobuf"
+    }
   ],
   "link": {
     "wasm": {
