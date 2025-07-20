@@ -1,0 +1,6 @@
+version: v2
+plugins:
+  - local: ["./protoc-gen-mbt-bin"]
+    out: sqlc/plugin/gen
+    opt:
+      - name=sqlc-plugin

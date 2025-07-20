@@ -1,0 +1,3 @@
+[submodule "protoc-gen-mbt"]
+	path = protoc-gen-mbt
+	url = git@github.com:moonbit-community/protoc-gen-mbt.git

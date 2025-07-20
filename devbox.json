@@ -4,7 +4,9 @@
     "buf@latest",
     "wasmtime@latest",
     "cargo@latest",
-    "git@latest"
+    "git@latest",
+    "wasm-tools@latest",
+    "sqlc@latest"
   ],
   "shell": {
     "init_hook": [
