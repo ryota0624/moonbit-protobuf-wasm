@@ -8,9 +8,9 @@
       "version": "0.1.0",
       "path": "../../../protoc-gen-mbt/lib"
     },
-    "sqlc-plugin": {
+    "ryota0624/sqlc-plugin": {
       "version": "0.1.0",
-      "path": "../gen"
+      "path": "../gen/sqlc-plugin"
     },
     "ryota0624/mustache": "0.0.3"
   },

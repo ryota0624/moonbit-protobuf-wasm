@@ -1,16 +1,16 @@
 {
   "import": [
     {
-      "path": "sqlc-plugin/plugin",
+      "path": "ryota0624/sqlc-plugin/plugin",
       "alias": "sqlc"
     },
     {
-      "path": "moonbit-community/protobuf/lib",
+      "path": "moonbit-community/protobuf",
       "alias": "protobuf"
     },
     {
       "path": "ryota0624/mustache",
       "alias": "mustache"
     }
-  ],
+  ]
 }

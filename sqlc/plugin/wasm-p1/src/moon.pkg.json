@@ -3,11 +3,11 @@
   "import": [
     "peter-jerry-ye/wasi",
     {
-      "path": "sqlc-plugin/plugin",
+      "path": "ryota0624/sqlc-plugin/plugin",
       "alias": "sqlc"
     },
     {
-      "path": "moonbit-community/protobuf/lib",
+      "path": "moonbit-community/protobuf",
       "alias": "protobuf"
     },
     "ryota0624/sqlc-plugin-wasm-p1/lib"

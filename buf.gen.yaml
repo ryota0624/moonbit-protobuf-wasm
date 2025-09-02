@@ -1,9 +1,17 @@
 version: v2
 plugins:
-  - local: ["./protoc-gen-mbt-bin"]
+  # - local: ["./protoc-gen-mbt-bin"]
+  #   out: sqlc/plugin/gen
+  #   opt:
+  #     - name=sqlc-plugin
+  #   types:
+  #     - "plugin"
+  - local: ["./protoc-gen-mbt/cli/target/native/release/build/protoc-gen-mbt.exe"]
     out: sqlc/plugin/gen
     opt:
-      - name=sqlc-plugin
+      - project_name=sqlc-plugin
+      - username=ryota0624
+      - json=false
     types:
       - "plugin"
   - local: ["./protoc-gen-mbt-bin"]

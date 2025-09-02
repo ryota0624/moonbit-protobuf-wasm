@@ -2,7 +2,7 @@
   "import": [
     "sql-adapter-message/sql_adapter_query",
     {
-      "path": "moonbit-community/protobuf/lib",
+      "path": "moonbit-community/protobuf",
       "alias": "protobuf"
     }
   ],

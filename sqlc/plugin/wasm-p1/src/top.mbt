@@ -5,7 +5,8 @@ fn main {
       let reader = @protobuf.BytesReader::from_bytes(
         @bytes.from_array(read_file(@wasi.Fd(0))),
       )
-      let request = @sqlc.GenerateRequest::read(reader)
+
+      let request = @protobuf.Read::read(reader)
       let response = @lib.handle_request(request)
       let writer = @buffer.new()
       @protobuf.Write::write(response, writer)

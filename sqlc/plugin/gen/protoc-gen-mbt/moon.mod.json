@@ -1,10 +1,13 @@
 {
-  "name": "sqlc-plugin",
+  "name": "username/protoc-gen-mbt",
   "version": "0.1.0",
   "readme": "",
   "repository": "",
   "license": "",
   "keywords": [],
   "description": "",
-  "source": "src"
+  "source": "src",
+  "deps": {
+    "moonbit-community/protobuf": "0.1.0"
+  }
 }
