@@ -16,6 +16,10 @@ wit-build:
 	cp ./tmp/wit-bindgen/moon.mod.json wit-bindgen/moon.mod.json 
 	rm -rf tmp
 
+buf-generate:
+	buf generate
+	cp sqlc/plugin/moon.mod_gen_sqlc_plugin.tmp sqlc/plugin/gen/sqlc-plugin/moon.mod.json
+
 .PHONY: build-p1
 build-p1:
 # 	buf generate

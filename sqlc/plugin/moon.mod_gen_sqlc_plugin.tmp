@@ -1,5 +1,5 @@
 {
-  "name": "username/protoc-gen-mbt",
+  "name": "ryota0624/sqlc-plugin",
   "version": "0.1.0",
   "readme": "",
   "repository": "",
@@ -8,6 +8,9 @@
   "description": "",
   "source": "src",
   "deps": {
-    "moonbit-community/protobuf": "0.1.0"
+    "moonbit-community/protobuf": {
+      "version": "0.1.0",
+      "path": "../../../../protoc-gen-mbt/lib"
+    }
   }
 }
