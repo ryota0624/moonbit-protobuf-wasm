@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-option go_package = ".t";
-
 package sql_adapter_query;
 
 message Set {

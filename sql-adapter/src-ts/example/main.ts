@@ -8,6 +8,8 @@ import { BunSqliteAdapter } from "../bun_sqlite.js";
 await new Promise<void>((res) => sql_adapter.example(new BunSqliteAdapter(), (unit: Unit) => {
 	res();
 	return unit;
-}))
+}, (err: any) => {
+	console.error(err);
+}));
 
 

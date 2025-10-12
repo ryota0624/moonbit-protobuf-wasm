@@ -1,9 +1,7 @@
 ///|
 pub suberror RunQueryError {
-  ExecuteError(@sql_adapter_query.RunQueryError)
-  InternalProtoReaderError(@protobuf.ReaderError)
-  InternalProtoFormatError(String)
   InternalDelegatedRunQueryError(String)
+  InternalProtoUnknownError(Error)
 } derive(Show)
 
 ///|
@@ -14,27 +12,21 @@ pub trait RunQueryContext {
 ///|
 pub async fn[Ctx : RunQueryContext] run_query(
   ctx : Ctx,
-  command : @sql_adapter_query.RunQuery
+  command : @sql_adapter_query.RunQuery,
 ) -> Set raise RunQueryError {
   let raw_input = @buffer.new()
-  @protobuf.Write::write(command, raw_input)
+  let write_r = try?(@protobuf.Write::write(command, raw_input))
+  write_r.map_err(RunQueryError::InternalProtoUnknownError(_)).unwrap_or_error()
+
   let raw_output = ctx.run_query_raw(raw_input.to_bytes())
-  let result = try? {
-      let result = (try? @sql_adapter_query.RunQueryResult::read(
-          @protobuf.BytesReader::from_bytes(raw_output),
-        ))
-        .map_err(RunQueryError::InternalProtoReaderError(_))
-        .unwrap_or_error()
-      match result.result_type {
-        RunQueryResult_RESULT_SUCCESS => result.result_set
-        RunQueryResult_RESULT_TYPE_UNSPECIFIED =>
-          raise InternalProtoFormatError(
-            "RunQueryResult_RESULT_TYPE_UNSPECIFIED",
-          )
-        RunQueryResult_RESULT_FAILURE => raise ExecuteError(result.error)
-      }
-    }
-  result.unwrap_or_error()
+  let r : Result[@sql_adapter_query.RunQueryResult, Error] = try? @protobuf.Read::read(
+      @protobuf.BytesReader::from_bytes(raw_output),
+    )
+  r
+  .map(res => res.result_set)
+  .map(Set(_))
+  .map_err(RunQueryError::InternalProtoUnknownError(_))
+  .unwrap()
 }
 
 ///|
@@ -45,7 +37,7 @@ pub trait ToQueryValue {
 ///|
 impl ToQueryValue for String with to_value(self) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
-  value.type_ = Value_VALUE_TYPE_STRING
+  value.type_ = VALUE_TYPE_STRING
   value.str = self
   value
 }
@@ -53,7 +45,7 @@ impl ToQueryValue for String with to_value(self) -> @sql_adapter_query.Value {
 ///|
 impl ToQueryValue for Int64 with to_value(self) -> @sql_adapter_query.Value {
   let value = @sql_adapter_query.Value::default()
-  value.type_ = Value_VALUE_TYPE_INT
+  value.type_ = VALUE_TYPE_INT
   value.int = self
   value
 }
@@ -64,17 +56,17 @@ impl[T : ToQueryValue] ToQueryValue for T? with to_value(self) -> @sql_adapter_q
     Some(v) => ToQueryValue::to_value(v)
     None => {
       let value = @sql_adapter_query.Value::default()
-      value.type_ = Value_VALUE_TYPE_NULL
+      value.type_ = VALUE_TYPE_NULL
       value
     }
   }
 }
 
 ///|
-type Row @sql_adapter_query.Row
+struct Row(@sql_adapter_query.Row)
 
 ///|
-type Set @sql_adapter_query.Set
+struct Set(@sql_adapter_query.Set)
 
 ///|
 fn[T : FromRow] Set::convert(self : Set) -> Array[T] raise FromRowError {
@@ -89,7 +81,7 @@ fn[T : FromRow] Set::convert(self : Set) -> Array[T] raise FromRowError {
 fn[T] Row::extract(
   self : Row,
   field : String,
-  extract_value : (@sql_adapter_query.Value) -> T raise FromRowError
+  extract_value : (@sql_adapter_query.Value) -> T raise FromRowError,
 ) -> T raise FromRowError {
   let index = self.columns.search_by(col => col.name == field)
   match index {
@@ -114,21 +106,21 @@ pub trait FromRow {
 
 ///|
 fn @sql_adapter_query.Value::int(
-  self : @sql_adapter_query.Value
+  self : @sql_adapter_query.Value,
 ) -> Int64 raise FromRowError {
-  if self.type_ != Value_VALUE_TYPE_INT {
-    raise FromRowError::InvalidType("Column type is not Value_VALUE_TYPE_INT")
+  if self.type_ != VALUE_TYPE_INT {
+    raise FromRowError::InvalidType("Column type is not VALUE_TYPE_INT")
   }
   self.int
 }
 
 ///|
 fn @sql_adapter_query.Value::string(
-  self : @sql_adapter_query.Value
+  self : @sql_adapter_query.Value,
 ) -> String raise FromRowError {
-  if self.type_ != Value_VALUE_TYPE_STRING {
+  if self.type_ != VALUE_TYPE_STRING {
     raise FromRowError::InvalidType(
-      "Column type is not Value_VALUE_TYPE_STRING",
+      "Column type is not VALUE_TYPE_STRING",
     )
   }
   self.str
@@ -150,7 +142,7 @@ priv struct RegisterUserCommand {
 fn RegisterUserCommand::new(
   name : String,
   age : Int64,
-  gender : String?
+  gender : String?,
 ) -> RegisterUserCommand {
   { name, age, gender }
 }
@@ -168,10 +160,10 @@ impl ToPlaceHolderValue for RegisterUserCommand with to_placeholder_value(self) 
 
 ///|
 fn[X] @sql_adapter_query.Value::option(
-  to_x : (@sql_adapter_query.Value) -> X raise FromRowError
+  to_x : (@sql_adapter_query.Value) -> X raise FromRowError,
 ) -> (@sql_adapter_query.Value) -> X? raise FromRowError {
   (value : @sql_adapter_query.Value) => {
-    if value.type_ == Value_VALUE_TYPE_NULL {
+    if value.type_ == VALUE_TYPE_NULL {
       return None
     }
     Some(to_x(value))
@@ -199,7 +191,7 @@ impl FromRow for User with from_row(row : Row) -> User raise FromRowError {
 ///|
 fn[T : ToPlaceHolderValue] @sql_adapter_query.RunQuery::set_values(
   self : @sql_adapter_query.RunQuery,
-  placeholder_value : T
+  placeholder_value : T,
 ) -> Unit {
   self.values = placeholder_value.to_placeholder_value()
 }
