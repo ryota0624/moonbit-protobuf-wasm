@@ -7,7 +7,7 @@
       "alias": "sqlc"
     },
     {
-      "path": "moonbit-community/protobuf",
+      "path": "moonbitlang/protobuf",
       "alias": "protobuf"
     },
     "ryota0624/sqlc-plugin-wasm-p1/lib"

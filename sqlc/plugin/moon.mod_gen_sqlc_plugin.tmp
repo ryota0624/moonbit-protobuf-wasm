@@ -8,7 +8,7 @@
   "description": "",
   "source": "src",
   "deps": {
-    "moonbit-community/protobuf": {
+    "moonbitlang/protobuf": {
       "version": "0.1.0",
       "path": "../../../../protoc-gen-mbt/lib"
     }

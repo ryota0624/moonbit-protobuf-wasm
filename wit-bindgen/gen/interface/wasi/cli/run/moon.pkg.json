@@ -12,7 +12,7 @@
       "alias": "sqlc"
     },
     {
-      "path": "moonbit-community/protobuf",
+      "path": "moonbitlang/protobuf",
       "alias": "protobuf"
     }
   ]
