@@ -4,10 +4,7 @@
   "deps": {
     "peter-jerry-ye/wasi": "0.21.0",
     "tonyfettes/encoding": "0.3.6",
-    "moonbitlang/protobuf": {
-      "version": "0.1.0",
-      "path": "../../../protoc-gen-mbt/lib"
-    },
+    "moonbitlang/protobuf": "0.1.0",
     "ryota0624/sqlc-plugin": {
       "version": "0.1.0",
       "path": "../gen/sqlc-plugin"

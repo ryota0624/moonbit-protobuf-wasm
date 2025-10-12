@@ -929,7 +929,7 @@ pub(all) struct Column {
   mut scope : String
   mut table :  Identifier 
   mut table_alias : String
-  mut identifier :  Identifier 
+  mut type_ :  Identifier 
   mut is_sqlc_slice : Bool
   mut embed_table :  Identifier 
   mut original_name : String
@@ -948,7 +948,7 @@ pub impl @protobuf.Sized for Column with size_of(self) {
   size += 1U + { let size = @protobuf.size_of(self.scope); @protobuf.size_of(size) + size }
   size += 1U + { let size = @protobuf.size_of(self.table); @protobuf.size_of(size) + size }
   size += 1U + { let size = @protobuf.size_of(self.table_alias); @protobuf.size_of(size) + size }
-  size += 1U + { let size = @protobuf.size_of(self.identifier); @protobuf.size_of(size) + size }
+  size += 1U + { let size = @protobuf.size_of(self.type_); @protobuf.size_of(size) + size }
   size += 1U + @protobuf.size_of(self.is_sqlc_slice)
   size += 1U + { let size = @protobuf.size_of(self.embed_table); @protobuf.size_of(size) + size }
   size += 1U + { let size = @protobuf.size_of(self.original_name); @protobuf.size_of(size) + size }
@@ -968,7 +968,7 @@ pub impl Default for Column with default() -> Column {
     scope : String::default(),
     table : Identifier::default(),
     table_alias : String::default(),
-    identifier : Identifier::default(),
+    type_ : Identifier::default(),
     is_sqlc_slice : Bool::default(),
     embed_table : Identifier::default(),
     original_name : String::default(),
@@ -976,7 +976,7 @@ pub impl Default for Column with default() -> Column {
     array_dims : Int::default(),
   }
 }
-pub fn Column::new(name : String, not_null : Bool, is_array : Bool, comment : String, length : Int, is_named_param : Bool, is_func_call : Bool, scope : String, table : Identifier, table_alias : String, identifier : Identifier, is_sqlc_slice : Bool, embed_table : Identifier, original_name : String, unsigned : Bool, array_dims : Int) -> Column {
+pub fn Column::new(name : String, not_null : Bool, is_array : Bool, comment : String, length : Int, is_named_param : Bool, is_func_call : Bool, scope : String, table : Identifier, table_alias : String, type_ : Identifier, is_sqlc_slice : Bool, embed_table : Identifier, original_name : String, unsigned : Bool, array_dims : Int) -> Column {
   Column::{
     name,
     not_null,
@@ -988,7 +988,7 @@ pub fn Column::new(name : String, not_null : Bool, is_array : Bool, comment : St
     scope,
     table,
     table_alias,
-    identifier,
+    type_,
     is_sqlc_slice,
     embed_table,
     original_name,
@@ -1011,7 +1011,7 @@ pub impl @protobuf.Read for Column with read_with_limit(reader : @protobuf.Limit
       (9, _) => msg.scope = reader |> @protobuf.read_string()
       (10, _) => msg.table = (reader |> @protobuf.read_message() : Identifier)
       (11, _) => msg.table_alias = reader |> @protobuf.read_string()
-      (12, _) => msg.identifier = (reader |> @protobuf.read_message() : Identifier)
+      (12, _) => msg.type_ = (reader |> @protobuf.read_message() : Identifier)
       (13, _) => msg.is_sqlc_slice = reader |> @protobuf.read_bool()
       (14, _) => msg.embed_table = (reader |> @protobuf.read_message() : Identifier)
       (15, _) => msg.original_name = reader |> @protobuf.read_string()
@@ -1048,7 +1048,7 @@ pub impl @protobuf.Write for Column with write(self: Column, writer : &@protobuf
   writer |> @protobuf.write_varint(90UL);
   writer |> @protobuf.write_string(self.table_alias)
   writer |> @protobuf.write_varint(98UL);
-  writer |> @protobuf.write_uint32(@protobuf.size_of(self.identifier)); @protobuf.Write::write(self.identifier, writer)
+  writer |> @protobuf.write_uint32(@protobuf.size_of(self.type_)); @protobuf.Write::write(self.type_, writer)
   writer |> @protobuf.write_varint(104UL);
   writer |> @protobuf.write_bool(self.is_sqlc_slice)
   writer |> @protobuf.write_varint(114UL);
@@ -1075,7 +1075,7 @@ pub impl @protobuf.AsyncRead for Column with read_with_limit(reader : @protobuf.
       (9, _) => msg.scope = reader |> @protobuf.async_read_string()
       (10, _) => msg.table = (reader |> @protobuf.async_read_message() : Identifier)
       (11, _) => msg.table_alias = reader |> @protobuf.async_read_string()
-      (12, _) => msg.identifier = (reader |> @protobuf.async_read_message() : Identifier)
+      (12, _) => msg.type_ = (reader |> @protobuf.async_read_message() : Identifier)
       (13, _) => msg.is_sqlc_slice = reader |> @protobuf.async_read_bool()
       (14, _) => msg.embed_table = (reader |> @protobuf.async_read_message() : Identifier)
       (15, _) => msg.original_name = reader |> @protobuf.async_read_string()
@@ -1112,7 +1112,7 @@ pub impl @protobuf.AsyncWrite for Column with write(self: Column, writer : &@pro
   writer |> @protobuf.async_write_varint(90UL);
   writer |> @protobuf.async_write_string(self.table_alias)
   writer |> @protobuf.async_write_varint(98UL);
-  writer |> @protobuf.async_write_uint32(@protobuf.size_of(self.identifier)); @protobuf.AsyncWrite::write(self.identifier, writer)
+  writer |> @protobuf.async_write_uint32(@protobuf.size_of(self.type_)); @protobuf.AsyncWrite::write(self.type_, writer)
   writer |> @protobuf.async_write_varint(104UL);
   writer |> @protobuf.async_write_bool(self.is_sqlc_slice)
   writer |> @protobuf.async_write_varint(114UL);
@@ -1140,7 +1140,7 @@ pub impl @protobuf.Sized for Query with size_of(self) {
   size += 1U + { let size = @protobuf.size_of(self.name); @protobuf.size_of(size) + size }
   size += 1U + { let size = @protobuf.size_of(self.cmd); @protobuf.size_of(size) + size }
   size += self.columns.iter().map(@protobuf.size_of).map(s => 1U + @protobuf.size_of(s) + s).fold(init=0U, UInt::op_add)
-  size += self.params.iter().map(@protobuf.size_of).map(s => 1U + @protobuf.size_of(s) + s).fold(init=0U, UInt::op_add)
+  size += self.parameters.iter().map(@protobuf.size_of).map(s => 1U + @protobuf.size_of(s) + s).fold(init=0U, UInt::op_add)
   size += self.comments.iter().map(@protobuf.size_of).map(s => 1U + @protobuf.size_of(s) + s).fold(init=0U, UInt::op_add)
   size += 1U + { let size = @protobuf.size_of(self.filename); @protobuf.size_of(size) + size }
   size += 1U + { let size = @protobuf.size_of(self.insert_into_table); @protobuf.size_of(size) + size }
