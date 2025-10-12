@@ -9,8 +9,10 @@ pub trait RunQueryContext {
   async run_query_raw(Self, str : Bytes) -> Bytes raise RunQueryError
 }
 
+
+
 ///|
-pub async fn[Ctx : RunQueryContext] run_query(
+pub async fn[Ctx : RunQueryContext] execute(
   ctx : Ctx,
   command : @sql_adapter_query.RunQuery,
 ) -> Set raise RunQueryError {
@@ -200,16 +202,16 @@ fn[T : ToPlaceHolderValue] @sql_adapter_query.RunQuery::set_values(
 pub async fn example(adapter : JsAdapter) -> Unit {
   let result = try? {
       let ctx = adapter.prepare_context("users.sqlite")
-      let query = @sql_adapter_query.RunQuery::default()
-      query.query = "CREATE TABLE IF NOT EXISTS users(name VARCHAR(255), age INTEGER, gender VARCHAR(255))"
-      ignore(run_query(ctx, query))
-      let query = @sql_adapter_query.RunQuery::default()
-      query.query = "INSERT INTO users(name, age, gender) values (?, ?, ?)"
-      query.set_values(RegisterUserCommand::new("Alice", 30, None))
-      ignore(run_query(ctx, query))
-      let query = @sql_adapter_query.RunQuery::default()
-      query.query = "select * from users"
-      let users : Array[User] = run_query(ctx, query).convert()
+      let run_query = @sql_adapter_query.RunQuery::default()
+      run_query.query = "CREATE TABLE IF NOT EXISTS users(name VARCHAR(255), age INTEGER, gender VARCHAR(255))"
+      ignore(execute(ctx, run_query))
+      let run_query = @sql_adapter_query.RunQuery::default()
+      run_query.query = "INSERT INTO users(name, age, gender) values (?, ?, ?)"
+      run_query.set_values(RegisterUserCommand::new("Alice", 30, None))
+      ignore(execute(ctx, run_query))
+      let run_query = @sql_adapter_query.RunQuery::default()
+      run_query.query = "select * from users"
+      let users : Array[User] = execute(ctx, run_query).convert()
       users
     }
   println(result)
