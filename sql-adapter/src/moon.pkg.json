@@ -1,6 +1,6 @@
 {
   "import": [
-    "sql-adapter-message/sql_adapter_query",
+    "ryota0624/sql-adapter-message/sql_adapter_query",
     {
       "path": "moonbitlang/protobuf",
       "alias": "protobuf"

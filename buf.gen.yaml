@@ -14,10 +14,12 @@ plugins:
       - json=false
     types:
       - "plugin"
-  - local: ["./protoc-gen-mbt-bin"]
+  - local: ["./protoc-gen-mbt/cli/target/native/release/build/protoc-gen-mbt.exe"]
     out: sql-adapter/gen-mbt
     opt:
-      - name=sql-adapter-message
+      - project_name=sql-adapter-message
+      - username=ryota0624
+      - json=false
     types:
       - "sql_adapter_query"
   - remote: buf.build/bufbuild/es:v2.6.0

@@ -18,7 +18,7 @@ wit-build:
 
 buf-generate:
 	buf generate
-	cp sqlc/plugin/moon.mod_gen_sqlc_plugin.tmp sqlc/plugin/gen/sqlc-plugin/moon.mod.json
+	# cp sqlc/plugin/moon.mod_gen_sqlc_plugin.tmp sqlc/plugin/gen/sqlc-plugin/moon.mod.json
 
 .PHONY: build-p1
 build-p1:
