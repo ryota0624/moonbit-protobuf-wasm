@@ -1129,7 +1129,7 @@ pub(all) struct Query {
   mut name : String
   mut cmd : String
   mut columns : Array[Column]
-  mut params : Array[Parameter]
+  mut parameters : Array[Parameter]
   mut comments : Array[String]
   mut filename : String
   mut insert_into_table :  Identifier 
@@ -1152,19 +1152,19 @@ pub impl Default for Query with default() -> Query {
     name : String::default(),
     cmd : String::default(),
     columns : [],
-    params : [],
+    parameters : [],
     comments : [],
     filename : String::default(),
     insert_into_table : Identifier::default(),
   }
 }
-pub fn Query::new(text : String, name : String, cmd : String, columns : Array[Column], params : Array[Parameter], comments : Array[String], filename : String, insert_into_table : Identifier) -> Query {
+pub fn Query::new(text : String, name : String, cmd : String, columns : Array[Column], parameters : Array[Parameter], comments : Array[String], filename : String, insert_into_table : Identifier) -> Query {
   Query::{
     text,
     name,
     cmd,
     columns,
-    params,
+    parameters,
     comments,
     filename,
     insert_into_table,
@@ -1179,7 +1179,7 @@ pub impl @protobuf.Read for Query with read_with_limit(reader : @protobuf.Limite
       (2, _) => msg.name = reader |> @protobuf.read_string()
       (3, _) => msg.cmd = reader |> @protobuf.read_string()
       (4, _) => msg.columns.push((reader |> @protobuf.read_message() : Column))
-      (5, _) => msg.params.push((reader |> @protobuf.read_message() : Parameter))
+      (5, _) => msg.parameters.push((reader |> @protobuf.read_message() : Parameter))
       (6, _) => msg.comments.push(reader |> @protobuf.read_string())
       (7, _) => msg.filename = reader |> @protobuf.read_string()
       (8, _) => msg.insert_into_table = (reader |> @protobuf.read_message() : Identifier)
@@ -1204,7 +1204,7 @@ pub impl @protobuf.Write for Query with write(self: Query, writer : &@protobuf.W
     writer |> @protobuf.write_uint32(@protobuf.size_of(item)); @protobuf.Write::write(item, writer)
 
   }
-  for item in self.params {
+  for item in self.parameters {
     writer |> @protobuf.write_varint(42UL)
     writer |> @protobuf.write_uint32(@protobuf.size_of(item)); @protobuf.Write::write(item, writer)
 
@@ -1228,7 +1228,7 @@ pub impl @protobuf.AsyncRead for Query with read_with_limit(reader : @protobuf.L
       (2, _) => msg.name = reader |> @protobuf.async_read_string()
       (3, _) => msg.cmd = reader |> @protobuf.async_read_string()
       (4, _) => msg.columns.push((reader |> @protobuf.async_read_message() : Column))
-      (5, _) => msg.params.push((reader |> @protobuf.async_read_message() : Parameter))
+      (5, _) => msg.parameters.push((reader |> @protobuf.async_read_message() : Parameter))
       (6, _) => msg.comments.push(reader |> @protobuf.async_read_string())
       (7, _) => msg.filename = reader |> @protobuf.async_read_string()
       (8, _) => msg.insert_into_table = (reader |> @protobuf.async_read_message() : Identifier)
@@ -1253,7 +1253,7 @@ pub impl @protobuf.AsyncWrite for Query with write(self: Query, writer : &@proto
     writer |> @protobuf.async_write_uint32(@protobuf.size_of(item)); @protobuf.AsyncWrite::write(item, writer)
 
   }
-  for item in self.params {
+  for item in self.parameters {
     writer |> @protobuf.async_write_varint(42UL)
     writer |> @protobuf.async_write_uint32(@protobuf.size_of(item)); @protobuf.AsyncWrite::write(item, writer)
 

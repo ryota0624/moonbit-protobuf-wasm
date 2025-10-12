@@ -5,10 +5,10 @@
 			"path": "../protoc-gen-mbt/lib",
 			"version": "0.1.0"
 		},
-		// "sqlc-plugin": {
-		// 	"path": "../sqlc/plugin/gen",
-		// 	"version": "0.1.0"
-		// },
+		"ryota062/sqlc-plugin": {
+			"path": "../sqlc/plugin/gen/sqlc-plugin",
+			"version": "0.1.0"
+		},
 		"ryota0624/sql-adapter-message": {
 			"path": "gen-mbt/sql-adapter-message",
 			"version": "0.1.0"
