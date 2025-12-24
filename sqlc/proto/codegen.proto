@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-option go_package = ".t";
-
 package plugin;
 
 service CodegenService {
@@ -96,7 +94,7 @@ message Column {
   string scope = 9;
   Identifier table = 10;
   string table_alias = 11;
-  Identifier identifier = 12;
+  Identifier type = 12;
   bool is_sqlc_slice = 13;
   Identifier embed_table = 14;
   string original_name = 15;
@@ -109,7 +107,7 @@ message Query {
   string name = 2 [json_name = "name"];
   string cmd = 3 [json_name = "cmd"];
   repeated Column columns = 4 [json_name = "columns"];
-  repeated Parameter params = 5 [json_name = "parameters"];
+  repeated Parameter parameters = 5 [json_name = "parameters"];
   repeated string comments = 6 [json_name = "comments"];
   string filename = 7 [json_name = "filename"];
   Identifier insert_into_table = 8 [json_name = "insert_into_table"];

@@ -1,3 +1,4 @@
 version: v2
 modules:
   - path: sqlc/proto
+  - path: sql-adapter/proto

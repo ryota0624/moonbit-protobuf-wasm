@@ -1,1 +1,0 @@
-{ "import": [{ "path" : "ryota0624/protobuf-wasm-bindgen/ffi", "alias" : "ffi" }] }

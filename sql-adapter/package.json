@@ -1,0 +1,21 @@
+{
+  "name": "sql-adapter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "moon build --target js && bun run src-ts/example/main.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@bufbuild/protobuf": "^2.6.1",
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.18"
+  }
+}

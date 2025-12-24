@@ -1,6 +1,28 @@
 version: v2
 plugins:
-  - local: ["./protoc-gen-mbt-bin"]
+  # - local: ["./protoc-gen-mbt-bin"]
+  #   out: sqlc/plugin/gen
+  #   opt:
+  #     - name=sqlc-plugin
+  #   types:
+  #     - "plugin"
+  - local: ["./protoc-gen-mbt/cli/target/native/release/build/protoc-gen-mbt.exe"]
     out: sqlc/plugin/gen
     opt:
-      - name=sqlc-plugin
+      - project_name=sqlc-plugin
+      - username=ryota0624
+      - json=false
+    types:
+      - "plugin"
+  - local: ["./protoc-gen-mbt/cli/target/native/release/build/protoc-gen-mbt.exe"]
+    out: sql-adapter/gen-mbt
+    opt:
+      - project_name=sql-adapter-message
+      - username=ryota0624
+      - json=false
+    types:
+      - "sql_adapter_query"
+  - remote: buf.build/bufbuild/es:v2.6.0
+    out: sql-adapter/gen-ts
+    types:
+      - "sql_adapter_query"

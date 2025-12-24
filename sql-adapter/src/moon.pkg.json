@@ -1,0 +1,25 @@
+{
+  "import": [
+    "ryota0624/sql-adapter-message/sql_adapter_query",
+    {
+      "path": "moonbitlang/protobuf",
+      "alias": "protobuf"
+    }
+  ],
+  "targets": {
+    "run_query_raw.js.mbt": [
+      "js"
+    ],
+    "run_query_raw.mbt": [
+      "not",
+      "js"
+    ]
+  },
+  "link": {
+    "js": {
+      "exports": [
+        "example"
+      ]
+    }
+  }
+}
